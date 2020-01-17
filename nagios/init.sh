@@ -86,7 +86,7 @@ sudo systemctl start nagios.service
 
 # Installing The Nagios Plugins
 # Nagios Core needs plugins to operate properly. The following steps will walk you through installing Nagios Plugins.
-# These steps install nagios-plugins 2.2.1. Newer versions will become available in the future and you can use those in the following installation steps. Please see the releases page on GitHub for all available versions.
+# These steps install nagios-plugins 2.3.1. Newer versions will become available in the future and you can use those in the following installation steps. Please see the releases page on GitHub for all available versions.
 # Please note that the following steps install most of the plugins that come in the Nagios Plugins package. However there are some plugins that require other libraries which are not included in those instructions. Please refer to the following KB article for detailed installation instructions:
 # Documentation - Installing Nagios Plugins From Source
  
@@ -133,7 +133,7 @@ sudo systemctl restart nagios.service
 
 # i. Install the check_nrpe Plugin
 # Download the source code tarball of the NRPE addon (visit https://www.nagios.org/downloads/nagios-core-
-# addons/ for links to the latest versions). At the time of writing, the latest version of NRPE was 3.2.1.
+# addons/ for links to the latest versions). At the time of writing, the latest version of NRPE was 4.0.0.
 mkdir /home/ubuntu/downloads
 cd /home/ubuntu/downloads
 wget https://github.com/NagiosEnterprises/nrpe/releases/download/nrpe-4.0.0/nrpe-4.0.0.tar.gz
