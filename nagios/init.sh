@@ -207,3 +207,25 @@ sudo make install
 # sudo systemctl stop nagios.service
 sudo systemctl restart nagios.service
 # sudo systemctl status nagios.service
+
+# Monitoring Host Setup
+# On the monitoring host (the machine that runs Nagios), you'll need to do just a few things:
+# • Install the check_nrpe plugin
+# • Create a Nagios command definition for using the check_nrpe plugin
+# • Create Nagios host and service definitions for monitoring the remote host
+# These instructions assume that you have already installed Nagios on this machine according to the
+# quickstart installation guide. The configuration examples that are given reference templates that are
+# defined in the sample localhost.cfg and commands.cfg files that get installed if you follow the quickstart.
+# i. Install the check_nrpe Plugin
+# Download the source code tarball of the NRPE addon (visit https://www.nagios.org/downloads/nagios-core-
+# addons/ for links to the latest versions). At the time of writing, the latest version of NRPE was 3.2.1.
+cd /home/ubuntu/downloads
+wget https://github.com/NagiosEnterprises/nrpe/releases/download/nrpe-4.0.0/nrpe-4.0.0.tar.gz
+# Extract the NRPE source code tarball:
+tar xzf nrpe-4.0.0.tar.gz
+cd nrpe-4.0.0
+# Compile the NRPE addon:
+./configure
+make check_nrpe
+# Install the NRPE plugin.
+make install-plugin
