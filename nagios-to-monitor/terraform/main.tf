@@ -17,8 +17,8 @@ resource "aws_key_pair" "nagios-test" {
 }
 
 # Creating security group with specified ports to open
-resource "aws_security_group" "akijakya-nagios" {
-  name        = "akijakya-nagios"
+resource "aws_security_group" "akijakya-nagios-to-monitor" {
+  name        = "akijakya-nagios-to-monitor"
   description = "Sec group for akijakyas server to be watched by Nagios"
   
   ingress {
@@ -51,10 +51,10 @@ resource "aws_instance" "prod" {
   ami           = "ami-0cc0a36f626a4fdf5"
   instance_type = "t2.micro"
   key_name      = aws_key_pair.nagios-test.key_name
-  user_data     = file("../init.sh")
+  user_data     = file("../nagios-monitor-init.sh")
 
   security_groups = [
-    aws_security_group.akijakya-nagios.name
+    aws_security_group.akijakya-nagios-to-monitor.name
   ]
 
   tags = {

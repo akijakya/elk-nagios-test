@@ -23,11 +23,11 @@ let group = new aws.ec2.SecurityGroup("nagios-to.monitor-pulumi", {
     ],
 });
 
-const deployer = new aws.ec2.KeyPair("deployer", {
+const deployer = new aws.ec2.KeyPair("nagios-monitor-test", {
     publicKey: fs.readFileSync('../../../../Creds/nagios-test.pub', 'utf8'),
 });
 
-let data = fs.readFileSync('../init.sh', 'utf8');
+let data = fs.readFileSync('../nagios-monitor-init.sh', 'utf8');
 
 let server = new aws.ec2.Instance("webserver-www", {
     instanceType: size,
