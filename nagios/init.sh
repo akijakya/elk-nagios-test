@@ -172,7 +172,7 @@ tar zxf nagios-plugins.tar.gz
  
 
 # Compile + Install
-cd /tmp/nagios-plugins-release-2.2.1/
+cd /tmp/nagios-plugins-release-2.3.1/
 sudo ./tools/setup
 sudo ./configure
 sudo make
