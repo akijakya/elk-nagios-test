@@ -11,8 +11,8 @@ provider "aws" {
 
 # Connecting via ssh
 # The pub file needed to be created in the desired directory first in the terminal with $ ssh-keygen -o
-resource "aws_key_pair" "nagios-test" {
-  key_name   = "nagios-test"
+resource "aws_key_pair" "nagios-monitor-test" {
+  key_name   = "nagios-monitor-test"
   public_key = file("~/Creds/nagios-test.pub")
 }
 
@@ -35,6 +35,13 @@ resource "aws_security_group" "akijakya-nagios-to-monitor" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 5666
+    to_port     = 5666
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   egress {
     from_port = 0
     to_port = 0
@@ -50,7 +57,7 @@ resource "aws_security_group" "akijakya-nagios-to-monitor" {
 resource "aws_instance" "prod" {
   ami           = "ami-0cc0a36f626a4fdf5"
   instance_type = "t2.micro"
-  key_name      = aws_key_pair.nagios-test.key_name
+  key_name      = aws_key_pair.nagios-monitor-test.key_name
   user_data     = file("../nagios-monitor-init.sh")
 
   security_groups = [
