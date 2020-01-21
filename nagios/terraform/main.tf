@@ -47,7 +47,7 @@ resource "aws_security_group" "akijakya-nagios" {
 # For our EC2 instances, we specify an AMI for Ubuntu 
 # (For eu-central-1 region: Ubuntu Server 18.04 LTS (HVM), SSD Volume Type - ami-0cc0a36f626a4fdf5 (64-bit x86) / ami-0f71209b1289bf95c (64-bit Arm))
 # , and request a "t2.micro" instance so we qualify under the free tier.
-resource "aws_instance" "prod" {
+resource "aws_instance" "web" {
   ami           = "ami-0cc0a36f626a4fdf5"
   instance_type = "t2.micro"
   key_name      = aws_key_pair.nagios-test.key_name
@@ -60,4 +60,8 @@ resource "aws_instance" "prod" {
   tags = {
     Name = "Nagios-akijakya"
   }
+}
+
+output "instance_ips" {
+  value = ["${aws_instance.web.*.public_ip}"]
 }
