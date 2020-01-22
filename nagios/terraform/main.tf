@@ -51,7 +51,7 @@ resource "aws_instance" "web" {
   ami           = "ami-0cc0a36f626a4fdf5"
   instance_type = "t2.micro"
   key_name      = aws_key_pair.nagios-test.key_name
-  user_data     = file("../init-docker.sh")
+  user_data     = file("../init.sh")
 
   security_groups = [
     aws_security_group.akijakya-nagios.name
