@@ -20,7 +20,16 @@ sudo usermod -aG docker $USER
 # installing docker-compose
 sudo apt install -yy docker-compose
 
-# pulling and starting the docker container
+# cloning docker-elk repo and starting the docker container
+cd /home/ubuntu
+sudo apt install git
+git clone https://github.com/deviantony/docker-elk.git
+cd docker-elk
+# In order to limit the memory consumption of the stack, the docker.compose.yml has to be edited.
+printf "\nlimits:\n  memory: 1500m" >> docker.compose.yml
 sudo systemctl start docker
-sudo docker pull akijakya/docker-single-test:latest
-sudo docker run -d -p 80:3000 akijakya/docker-single-test:latest
+sudo docker-compose up -d
+
+# The stack is pre-configured with the following privileged bootstrap user:
+# user: elastic
+# password: changeme

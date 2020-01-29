@@ -13,7 +13,7 @@ provider "aws" {
 # The pub file needed to be created in the desired directory first in the terminal with $ ssh-keygen -o
 resource "aws_key_pair" "ELK-test" {
   key_name   = "ELK-test"
-  public_key = file("~/Creds/nagios-test.pub")
+  public_key = file("~/Creds/ELK_test.pub")
 }
 
 # Creating security group with specified ports to open
@@ -78,10 +78,10 @@ resource "aws_security_group" "akijakya-ELK" {
 # Create 1 new AWS Instance. 
 # For our EC2 instances, we specify an AMI for Ubuntu 
 # (For eu-central-1 region: Ubuntu Server 18.04 LTS (HVM), SSD Volume Type - ami-0cc0a36f626a4fdf5 (64-bit x86) / ami-0f71209b1289bf95c (64-bit Arm))
-# , and request a "t2.micro" instance so we qualify under the free tier.
+# , and request a "t2.medium" instance so we can use this demanding application.
 resource "aws_instance" "web" {
   ami           = "ami-0cc0a36f626a4fdf5"
-  instance_type = "t2.micro"
+  instance_type = "t2.medium"
   key_name      = aws_key_pair.ELK-test.key_name
   user_data     = file("../init.sh")
 
