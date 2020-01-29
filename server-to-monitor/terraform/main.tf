@@ -11,15 +11,15 @@ provider "aws" {
 
 # Connecting via ssh
 # The pub file needed to be created in the desired directory first in the terminal with $ ssh-keygen -o
-resource "aws_key_pair" "nagios-monitor-test" {
-  key_name   = "nagios-monitor-test"
-  public_key = file("~/Creds/nagios-test.pub")
+resource "aws_key_pair" "server-monitor-test" {
+  key_name   = "server-monitor-test"
+  public_key = file("~/Creds/server_test.pub")
 }
 
 # Creating security group with specified ports to open
-resource "aws_security_group" "akijakya-nagios-to-monitor" {
-  name        = "akijakya-nagios-to-monitor"
-  description = "Sec group for akijakyas server to be watched by Nagios"
+resource "aws_security_group" "akijakya-server-to-monitor" {
+  name        = "akijakya-server-to-monitor"
+  description = "Sec group for akijakyas server to be watched by monitoring services"
   
   ingress {
     from_port   = 22
@@ -57,15 +57,15 @@ resource "aws_security_group" "akijakya-nagios-to-monitor" {
 resource "aws_instance" "web" {
   ami           = "ami-0cc0a36f626a4fdf5"
   instance_type = "t2.micro"
-  key_name      = aws_key_pair.nagios-monitor-test.key_name
-  user_data     = file("../nagios-monitor-init.sh")
+  key_name      = aws_key_pair.server-monitor-test.key_name
+  user_data     = file("../server-monitor-init.sh")
 
   security_groups = [
-    aws_security_group.akijakya-nagios-to-monitor.name
+    aws_security_group.akijakya-server-to-monitor.name
   ]
 
   tags = {
-    Name = "Nagios-to-monitor"
+    Name = "Server-to-monitor"
   }
 }
 

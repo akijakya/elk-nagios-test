@@ -13,7 +13,7 @@ let ami = aws.getAmi({
     mostRecent: true,
 });
 
-let group = new aws.ec2.SecurityGroup("nagios-to.monitor-pulumi", {
+let group = new aws.ec2.SecurityGroup("server-to.monitor-pulumi", {
     ingress: [
         { protocol: "tcp", fromPort: 22, toPort: 22, cidrBlocks: ["0.0.0.0/0"] },
         { protocol: "tcp", fromPort: 80, toPort: 80, cidrBlocks: ["0.0.0.0/0"] },
@@ -23,11 +23,11 @@ let group = new aws.ec2.SecurityGroup("nagios-to.monitor-pulumi", {
     ],
 });
 
-const deployer = new aws.ec2.KeyPair("nagios-monitor-test", {
-    publicKey: fs.readFileSync('../../../../Creds/nagios-test.pub', 'utf8'),
+const deployer = new aws.ec2.KeyPair("server-monitor-test", {
+    publicKey: fs.readFileSync('../../../../Creds/server_test.pub', 'utf8'),
 });
 
-let data = fs.readFileSync('../nagios-monitor-init.sh', 'utf8');
+let data = fs.readFileSync('../server-monitor-init.sh', 'utf8');
 
 let server = new aws.ec2.Instance("webserver-www", {
     instanceType: size,
@@ -36,7 +36,7 @@ let server = new aws.ec2.Instance("webserver-www", {
     keyName: deployer,
     userData: data,
     tags: {
-        Name: "Nagios-w-pulumi",
+        Name: "Server-to-monitor",
     },
 });
 
