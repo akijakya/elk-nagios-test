@@ -35,12 +35,13 @@ resource "aws_security_group" "akijakya-server-to-monitor" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-    from_port   = 5666
-    to_port     = 5666
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  # This is only needed in the case of Nagios + NRPE combination
+  # ingress {
+  #   from_port   = 5666
+  #   to_port     = 5666
+  #   protocol    = "tcp"
+  #   cidr_blocks = ["0.0.0.0/0"]
+  # }
 
   egress {
     from_port = 0
@@ -58,7 +59,7 @@ resource "aws_instance" "web" {
   ami           = "ami-0cc0a36f626a4fdf5"
   instance_type = "t2.micro"
   key_name      = aws_key_pair.server-monitor-test.key_name
-  user_data     = file("../server-monitor-init.sh")
+  user_data     = file("../elk-monitor-filebeat-init.sh")
 
   security_groups = [
     aws_security_group.akijakya-server-to-monitor.name

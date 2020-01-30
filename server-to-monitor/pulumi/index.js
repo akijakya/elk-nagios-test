@@ -27,7 +27,7 @@ const deployer = new aws.ec2.KeyPair("server-monitor-test", {
     publicKey: fs.readFileSync('../../../../Creds/server_test.pub', 'utf8'),
 });
 
-let data = fs.readFileSync('../server-monitor-init.sh', 'utf8');
+let data = fs.readFileSync('../nagios-monitor-init.sh', 'utf8');
 
 let server = new aws.ec2.Instance("webserver-www", {
     instanceType: size,

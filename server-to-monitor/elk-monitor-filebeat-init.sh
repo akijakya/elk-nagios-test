@@ -31,3 +31,5 @@ sudo systemctl enable filebeat
 # If your system does not use systemd then run:
 # sudo update-rc.d filebeat defaults 95 10
 
+# Configuring Filebeat
+cd /etc/filebeat
